@@ -34,4 +34,4 @@ with open("input.txt") as f:
         target_lights = [x == "#" for x in p[0][1:-1]]
         num_presses = solve(buttons, target_lights)
         total += num_presses
-print(total)
+print(total)  # 520
