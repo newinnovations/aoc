@@ -5,7 +5,9 @@ from functools import cache
 
 @cache
 def present_size(present_idx):
-    return sum(x == "#" for row in shapes[present_idx] for x in row)
+    shape = shapes[present_idx]
+    return len(shape) * len(shape[0])
+    # return sum(x == "#" for row in shapes[present_idx] for x in row)
 
 
 def enough_space_available(width, height, present_counts):
@@ -40,7 +42,11 @@ with open("input.txt") as f:
 # If you look closely at the few shapes inside the input data, you can see
 # or feel that there is (almost?) no possibility for shapes to share space.
 #
-# NOTE: this does not apply to the sample data
+# I changed the size calculation of the present shape to better fit the
+# idea that space cannot be shared, so we need to look at width and height
+# of the shape instead of the number of "#". Did not change the outcome.
+#
+# NOTE: this solution does not work with the sample data
 print(
     sum(
         enough_space_available(w, h, present_counts)
