@@ -37,10 +37,14 @@ with open("input.txt") as f:
             presents.append((width, height, present_counts))
 
 # Day 12 can just be solved by checking basic space requirements.
+#
 # Complex rotating and fitting is just not needed. A joke or a pity?
 #
 # If you look closely at the few shapes inside the input data, you can see
 # or feel that there is (almost?) no possibility for shapes to share space.
+#
+# Easter egg: "I need to throw in a puzzle like this occasionally to keep
+#              everyone on their toes, right?"
 #
 # I changed the size calculation of the present shape to better fit the
 # idea that space cannot be shared, so we need to look at width and height
