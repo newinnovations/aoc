@@ -40,7 +40,7 @@ Puzzle data (12m16s on Dell Latitude 5440, i7-1355U, 40GB RAM)
   Total: 526
 """
 
-FILENAME, SHOW_SOLUTION = "ref.txt", True
+# FILENAME, SHOW_SOLUTION = "ref.txt", True
 FILENAME, SHOW_SOLUTION = "input.txt", False
 
 
