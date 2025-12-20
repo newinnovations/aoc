@@ -5,12 +5,12 @@
 from collections import defaultdict
 
 
-def extend_networks(networks, connected_pcs):
+def extend_networks(networks, connected_pcs, seen):
     result = set()
     for network in networks:
         network = list(network)
         for pc in connected_pcs:
-            if pc in network:
+            if pc in seen or pc in network:
                 continue
             if all(n in connections[pc] for n in network):
                 result.add(tuple(sorted(network + [pc])))
@@ -24,14 +24,15 @@ with open("input.txt") as f:
         connections[pc[0]].add(pc[1])
         connections[pc[1]].add(pc[0])
 
-largest_networks = set()
+largest_networks, seen = set(), set()
 for pc, connected_pcs in connections.items():
     networks = set([tuple([pc])])  # start with a single node network
     while True:  # keep extending it with nodes while still fully connected
-        if not (ext_net := extend_networks(networks, connected_pcs)):
+        if not (ext_net := extend_networks(networks, connected_pcs, seen)):
             break  # one step to far, largest network was found in previous step
         networks = ext_net
     largest_networks.update(networks)
+    seen.add(pc)
 
 # find the largest network, this is where the lan party is
 lan_party = set()
