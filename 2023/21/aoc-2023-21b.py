@@ -96,3 +96,10 @@ print(a + n * b + c * n * (n + 1) // 2)  # 621944727930768
 #     b += c
 #     a += b
 # print(a)  # 621944727930768
+
+# # Lagrange Interpolating Polynomial
+# # https://www.dcode.fr/lagrange-interpolating-polynomial
+# # The lagrange polynomial calculator can predict other points based on the assumption
+# # that the curve formed by these points is derived from a polynomial equation
+# x = 202300
+# print(15197 * x**2 + 15303 * x + 3868)
