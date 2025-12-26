@@ -16,9 +16,7 @@ def calc_previous(s):
         d = [b - a for a, b in pairwise(d)]
         if all(n == 0 for n in d):
             break
-    while len(first) > 1:
-        first = first[:-2] + [first[-2] - first[-1]]
-    return first[0]
+    return sum(-x if i % 2 else x for i, x in enumerate(first))
 
 
 total = 0
