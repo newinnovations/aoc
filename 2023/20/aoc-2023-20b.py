@@ -9,16 +9,13 @@ types = {}
 
 
 def single_press():
-    count = (0, 0)
     d = deque([("button", False, "broadcaster")])
     while d:
+        (orig, p, name) = d.popleft()
         # need to check inside the loop, at the of end of the
         # sequence the signal is back to low
-        for i in rx_in:
-            if freq[i] is None and state[i]:
-                freq[i] = n  # type: ignore
-        (orig, p, name) = d.popleft()
-        count = (count[0] + (not p), count[1] + p)
+        if orig in rx_in and freq[orig] is None and p:
+            freq[orig] = num_press  # type: ignore
         if t := types.get(name):
             if t == "%" and p == 0:
                 s = not state[name]
@@ -35,7 +32,6 @@ def single_press():
             state[name] = p
             for o in outputs[name]:
                 d.append((name, p, o))
-    return count
 
 
 with open("input.txt") as f:
@@ -65,12 +61,12 @@ rx_in = inputs[inputs["rx"][0]]
 # qt 4007, 8014, 12021, 16028, 20035, 24042, 28049
 
 freq = {n: None for n in rx_in}
-n = 1
+num_press = 1
 while True:
     single_press()
     if all(f is not None for f in freq.values()):
         break
-    n += 1
+    num_press += 1
 
 result = 1
 for f in freq.values():
