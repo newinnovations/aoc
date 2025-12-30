@@ -3,8 +3,10 @@
 import heapq
 from collections import deque
 
-DIRS = [(1, 0, 1), (-1, 0, -1), (2, 1, 0), (-2, -1, 0)]  # R=1, L=-1, D=2, U=-2
+R, L, D, U = 1, -1, 2, -2
+DIR = {R: (0, 1), L: (0, -1), D: (1, 0), U: (-1, 0)}
 DIRV = "=>v^<"
+DIRS = [(d, dr, dc) for d, (dr, dc) in DIR.items()]  # speedup
 
 SHOW_MAZE = True
 
@@ -57,7 +59,7 @@ def generic_dijkstra(start, finish):
         #           known cost for this next state.
         for d, dr, dc in DIRS:
             nr, nc = r + dr, c + dc
-            if 0 <= nr < R and 0 <= nc < C:
+            if 0 <= nr < nrows and 0 <= nc < ncols:
                 # (1) check if allowed, skip if not
                 if maze[nr][nc] == "#" or d == -dir:
                     continue
@@ -65,7 +67,7 @@ def generic_dijkstra(start, finish):
                 ncost = cost + 1 if d == dir else cost + 1001
                 nstate = (nr, nc, d)
                 nbest = best.get(nstate, float("inf"))
-                if ncost > nbest:  # worse
+                if ncost > nbest:  # worse: skip
                     continue
                 if ncost == nbest:  # equal: in 16a we continue
                     continue
@@ -86,16 +88,15 @@ def find(target):
 
 with open("input.txt") as f:
     maze = [list(line.strip()) for line in f]
-    R, C = len(maze), len(maze[0])
+    nrows, ncols = len(maze), len(maze[0])
 
 
 best, end_states, parents = generic_dijkstra(find("S"), find("E"))
 
 if SHOW_MAZE:
-    # Reconstruct paths by walking parents backwards. Because we stopped in 16a
-    # after finding the first best path, there is only a single one.
+    # Reconstruct paths by walking parents backwards.
     # vmaze = maze.copy()
-    vmaze = [["."] * C for _ in range(R)]
+    vmaze = [["."] * ncols for _ in range(nrows)]
     q = deque(end_states)
     while q:
         state = q.popleft()
