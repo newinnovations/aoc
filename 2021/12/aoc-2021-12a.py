@@ -29,4 +29,4 @@ def count(current, seen):
     return total
 
 
-print(count("start", frozenset(["start"])))
+print(count("start", frozenset(["start"])))  # 5178
