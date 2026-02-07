@@ -28,7 +28,7 @@ def generic_dijkstra(start, finish):
     while pq:
         cost, state = heapq.heappop(pq)
 
-        # Generic end condition, also in case we want to find all best paths.
+        # Generic end condition, needed in case we want to find all best paths.
         # It ends when we encouter a state with worse cost than the goal.
         if cost > best_overall:
             break
