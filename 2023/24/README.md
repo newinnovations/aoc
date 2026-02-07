@@ -22,9 +22,9 @@ The line is represented by the 6-tuple: $\mathcal{L}=(v_{x},v_{y},v_{z},m_{x},m_
 
 - Homogeneity: Plücker coordinates are often treated as homogeneous coordinates in projective space $\mathbb{P}^{5}$; scaling the entire 6-tuple by a non-zero constant describes the same geometric line.
 
-## Approach
+## Puzzle approach
 
-If you suspect a **true transversal** exists (intersects every line), this is the cleanest, most principled approach.
+If you suspect a **true transversal** exists (intersects every line), transforming to Plücker coordinates can help.
 
 **Key idea:** A 3D line can be represented by Plücker coordinates $(\mathbf{d}:\mathbf{m})$, where:
 
@@ -32,7 +32,7 @@ If you suspect a **true transversal** exists (intersects every line), this is th
 - $\mathbf{m} = \mathbf{p} \times \mathbf{d}$ is the moment.
 - They satisfy the **Plücker relation** $\mathbf{d} \cdot \mathbf{m} = 0$.
 
-A line $(\mathbf{d}:\mathbf{m})$ intersects a given line $(\mathbf{d}_n, \mathbf{m}_n=\mathbf{p}_n \times \mathbf{d}_n)$ **iff**:
+A line $(\mathbf{d}:\mathbf{m})$ intersects a given line $(\mathbf{d}_n:\mathbf{m}_n)$ **iff**:
 
 $$
 \mathbf{d}\cdot\mathbf{m}_n + \mathbf{d}_n\cdot\mathbf{m} = 0.
@@ -80,3 +80,7 @@ $$
 where $[\mathbf{d}]_\times$ is the **$3\times3$** skew-symmetric matrix that implements the cross product.
 Stacking the two lines gives a **$6\times3$** linear system in $\mathbf{p}$.
 Since the lines intersect, the system is consistent and we can get $\mathbf{p}$ via normal equations.
+
+## Alternative approach
+
+A much simpler approach is to create a set of equality constraints on the x, y and z coordinates of the intersecting point between the solution and the particle trajectories. And let sympy solve that.

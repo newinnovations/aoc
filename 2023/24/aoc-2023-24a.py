@@ -41,12 +41,12 @@ def intersect(a, b):
         return False  # parallel / no intersection
 
 
-STONES = []
+particles = []
 with open(FILENAME) as f:
     for line in f:
         px, py, pz, vx, vy, vz = map(
             int, line.strip().replace(" ", "").replace("@", ",").split(",")
         )
-        STONES.append((px, py, pz, vx, vy, vz))
+        particles.append((px, py, pz, vx, vy, vz))
 
-print(sum(intersect(a, b) for a, b in combinations(STONES, 2)))
+print(sum(intersect(a, b) for a, b in combinations(particles, 2)))  # 15107

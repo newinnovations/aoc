@@ -9,11 +9,6 @@ def plucker(px, py, pz, vx, vy, vz):
     return d, m
 
 
-# def plucker_inverse(d, m):
-#     p = d.cross(m)
-#     return p, d
-
-
 def plucker_intersection_point(d1, m1, d2, m2):
     # Assume that lines do indeed intersect and are not parallel.
     def skew(d):
@@ -29,25 +24,25 @@ def plucker_intersection_point(d1, m1, d2, m2):
     return p
 
 
-def time_and_intersection(stone, d_sol, m_sol):
-    px, py, pz, vx, vy, vz = stone
+def time_and_intersection(particle, d_sol, m_sol):
+    px, py, pz, vx, vy, vz = particle
     d, m = plucker(px, py, pz, vx, vy, vz)
     point = plucker_intersection_point(d, m, d_sol, m_sol)
     t = (point[0] - px) / vx
     return t, point
 
 
-STONES = []
+particles = []
 with open("input.txt") as f:
     for line in f:
         px, py, pz, vx, vy, vz = map(
             int, line.strip().replace(" ", "").replace("@", ",").split(",")
         )
-        STONES.append((px, py, pz, vx, vy, vz))
+        particles.append((px, py, pz, vx, vy, vz))
 
-# Transform to Plücker coordinates (5 stones are enough to obtain the solution)
+# Transform to Plücker coordinates (5 particles are enough to obtain the solution)
 A = []
-for s in STONES[:5]:
+for s in particles[:5]:
     d, m = plucker(*s)
     A.append(d[:] + m[:])
 
@@ -61,9 +56,9 @@ d_sol = Matrix(ker[0][3:])
 m_sol = Matrix(ker[0][:3])
 
 # Find starting point (position on t=0)
-t1, p1 = time_and_intersection(STONES[0], d_sol, m_sol)
-t2, p2 = time_and_intersection(STONES[1], d_sol, m_sol)
+t1, p1 = time_and_intersection(particles[0], d_sol, m_sol)
+t2, p2 = time_and_intersection(particles[1], d_sol, m_sol)
 start = p1 - t1 * ((p2 - p1) / (t2 - t1))
 
 # Sum x, y and z
-print(sum(start))
+print(sum(start))  # 856642398547748
