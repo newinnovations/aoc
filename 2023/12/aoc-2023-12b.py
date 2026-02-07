@@ -25,7 +25,7 @@ def count_possibilities(seq, req):
 
 
 total = 0
-with open("input.txt") as f:
+with open(0) as f:
     for line in f:
         seq, req = line.strip().split(" ")
         req = tuple(map(int, req.split(",")))

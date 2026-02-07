@@ -2,20 +2,24 @@
 
 import heapq
 
-DIRS = {"^": (-1, 0), "v": (1, 0), "<": (0, -1), ">": (0, 1)}
-D180 = {"^": "v", "v": "^", "<": ">", ">": "<"}
+DIRS = [(1, 0, 1), (-1, 0, -1), (2, 1, 0), (-2, -1, 0)]
+DIRV = "=>v^<"
 
-type state_type = tuple[int, int, str, int]
+# state: row, column, direction, direction_count
+type state_type = tuple[int, int, int, int]
 
 
-def dijkstra():
-    state: state_type = (start_r, start_c, "=", 0)
-    q: list[tuple[int, state_type]] = [(0, state)]  # Priority queue
+def dijkstra(start, finish):
+    start_r, start_c = start
+    finish_r, finish_c = finish
+
+    state: state_type = (start_r, start_c, 0, 0)
+    pq: list[tuple[int, state_type]] = [(0, state)]  # Priority queue
     best: dict[state_type, int] = {state: 0}  # Best known cost for each state
     parent: dict[state_type, state_type | None] = {state: None}  # Parents
 
-    while q:
-        cost, state = heapq.heappop(q)
+    while pq:
+        cost, state = heapq.heappop(pq)
 
         r, c, dir, dir_count = state
 
@@ -37,36 +41,31 @@ def dijkstra():
             path.reverse()
             return cost, path
 
-        for d, (dr, dc) in DIRS.items():
+        for d, dr, dc in DIRS:
             nr, nc = r + dr, c + dc
             if 0 <= nr < R and 0 <= nc < C:
                 ncost = cost + maze[nr][nc]
                 ndir_count = dir_count + 1 if d == dir else 1
-                if ndir_count > 3 or D180[d] == dir:
+                if ndir_count > 3 or d == -dir:
                     continue
                 nstate = (nr, nc, d, ndir_count)
                 if ncost < best.get(nstate, float("inf")):
                     best[nstate] = ncost
                     parent[nstate] = state
-                    heapq.heappush(q, (ncost, nstate))
+                    heapq.heappush(pq, (ncost, nstate))
     return 0, []
 
 
-maze = []
-with open("input.txt") as f:
-    for line in f:
-        maze.append(list(map(int, list(line.strip()))))
-R = len(maze)
-C = len(maze[0])
-start_r, start_c = (0, 0)
-finish_r, finish_c = (R - 1, C - 1)
+with open(0) as f:
+    maze = [list(map(int, list(line.strip()))) for line in f]
+    R, C = len(maze), len(maze[0])
 
 vmaze = [["."] * C for _ in range(R)]
-cost, path = dijkstra()
+cost, path = dijkstra((0, 0), (R - 1, C - 1))
 for r, c, d in path:
-    vmaze[r][c] = d
+    vmaze[r][c] = DIRV[d]
 
 for row in vmaze:
     print(" ".join(row))
 
-print(cost)
+print(cost)  # 866

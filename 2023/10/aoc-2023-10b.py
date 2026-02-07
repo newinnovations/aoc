@@ -23,7 +23,7 @@ def find(target):
     raise ValueError("failed to find target")
 
 
-with open("input.txt") as f:
+with open(0) as f:
     maze = [list(line.strip()) for line in f]
     nrows, ncols = len(maze), len(maze[0])
 
