@@ -15,7 +15,7 @@ def aplly_all_mappings(id):
 
 
 seeds, mappings, mapping = [], [], []
-with open("input.txt") as f:
+with open(0) as f:
     for line in f:
         line = line.strip()
         if line:

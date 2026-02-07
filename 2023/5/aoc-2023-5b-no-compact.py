@@ -19,7 +19,7 @@ def apply_mapping(mapping, ranges):
             untouched_ranges += ut
         ranges = untouched_ranges
     result += ranges
-    return compact_ranges(result)
+    return result
 
 
 def apply_rule(range, dst, src, length):
@@ -62,48 +62,8 @@ def apply_rule(range, dst, src, length):
     return result_touched, result_untouched
 
 
-def combine_two_ranges(a, b):
-    """Combines two ranges to one or returns None if they cannot be combined
-
-           bbbbbbbb
-    1  aa  |      |
-    2  aaaa|      |
-    3  aaaaaaaaaa |
-    4  aaaaaaaaaaaaaaaa
-    5      | aaaa |
-    6      | aaaaaaaaaa
-    7      |      |aaaa
-    8      |      |  aa
-
-    """
-    (a_s, a_f), (b_s, b_f) = a, b
-
-    if a_s > b_f or b_s > a_f:  # no overlap/touch (1, 8)
-        return None
-
-    # b inside a (4), a inside b (5), overlap (3, 6) or touch (2, 7)
-    return (min(a_s, b_s), max(a_f, b_f))
-
-
-def compact_ranges(ranges):
-    result, cur = [], None
-    for range in sorted(ranges):
-        if cur is None:
-            cur = range
-        else:
-            combined = combine_two_ranges(cur, range)
-            if combined is None:
-                result.append(cur)
-                cur = range
-            else:
-                cur = combined
-    if cur is not None:
-        result.append(cur)
-    return result
-
-
 seeds, mappings, mapping = [], [], []
-with open(0) as f:
+with open("input.txt") as f:
     for line in f:
         line = line.strip()
         if line:
@@ -124,4 +84,4 @@ mappings.append(mapping)
 # Ranges here are [start, finish)  [10,20) and [20,30) touch but do not overlap
 seed_ranges = [(seeds[i], seeds[i] + seeds[i + 1]) for i in range(0, len(seeds), 2)]
 
-print(aplly_all_mappings(seed_ranges)[0][0])  # 2008785
+print(min(aplly_all_mappings(seed_ranges))[0])  # 2008785
