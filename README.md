@@ -56,8 +56,8 @@ variety of skill levels that can be solved in any programming language you like.
 16. **Reindeer Maze** – Shortest path where steps cost 1 and quarter‑turns cost 1000; then count tiles that lie on **any** optimal route.
     * Created generic Dijkstra's algorithm. Including finding all optimal routes and reverse path calculations.
 17. **Chronospatial Computer** – Emulate an 8‑opcode, 3‑bit program and print outputs; then search for a register value that makes the program output its own code.
-18. **RAM Run** – Drop bytes that block cells and find the shortest path after K bytes; then identify the **first byte index** at which no path remains.
-    * Minimum number of steps in grid with N obstacles. Find first obstacle that prevents a path. Iterative Breadth‑First Search (BFS) (unweighted grid).
+18. **RAM Run** – Drop bytes that block cells and find the shortest path after N bytes; then identify the **first byte index** at which no path remains.
+    * Breadth‑First Search (BFS). Minimum number of steps in grid with N obstacles. Find first obstacle that prevents a path.
 19. **Linen Layout** – Given small stripe patterns, count which long designs are **possible**; then count **how many ways** each design can be assembled (DP).
     * Memoization
 20. **Race Condition** – Baseline shortest path; then allow one “cheat” through walls for up to 2 steps (later 20) and count cheats that save at least a threshold.
