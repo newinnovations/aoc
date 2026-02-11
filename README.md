@@ -9,6 +9,8 @@ variety of skill levels that can be solved in any programming language you like.
 * Combining ranges in 2023:5b, improved in 2022:15
 * Moving grid obstacles in 2022:24
 * Generic dijkstra with priority queue in 2024:16
+* Powerset from 2020:14 to get all possible (2^N) combinations of an iterable’s elements
+* Chinese Remainder Theorem from 2020:13
 * Topological sort of a graph (Kahn's algorithm) in 2025:11b
 * OR-tools cp_model in 2025:10b and 2022:15b-ortools
 * Shapely in 2025:9b, 2023:18, 2023:10
@@ -176,7 +178,7 @@ variety of skill levels that can be solved in any programming language you like.
 10. **Adapter Array:** Compute 1‑jolt × 3‑jolt difference counts, then count all valid adapter arrangements.
 11. **Seating System:** Simulate seat occupancy until stable—first with adjacency, then with line‑of‑sight rules.
 12. **Rain Risk:** Follow navigation actions; part two steers using a moving waypoint relative to the ship.
-13. **Shuttle Search:** Find best bus ID × wait time, then the earliest timestamp matching bus offsets (CRT style).
+13. **Shuttle Search:** Find best bus ID × wait time, then the earliest timestamp matching bus offsets (Chinese Remainder Theorem (CRT) style).
 14. **Docking Data:** Apply bitmasks to values on writes, then to addresses with floating **X** bits to sum memory.
 15. **Rambunctious Recitation:** Play the memory game to determine the 2020th and 30,000,000th spoken numbers.
 16. **Ticket Translation:** Identify invalid ticket values, then deduce field positions and multiply “departure” fields.
